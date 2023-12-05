@@ -82,7 +82,7 @@ export const App = () => {
       {page < Math.ceil(total / 12) && (
         <Button onClick={onHandleClickLoadMore} />
       )}
-      <Loader isLoading={isLoading} />
+     {isLoading && <Loader />}
       {isOpenModal && <Modal dataModal={dataModal} closeModal={closeModal} />}
     </div>
   );
