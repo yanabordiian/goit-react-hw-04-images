@@ -15,12 +15,18 @@ export const App = () => {
   const [value, setValue] = useState('');
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const [lastSearchQuery, setLastSearchQuery] = useState('');
 
   useEffect(() => {
     const getDataImages = async () => {
       if (!value) return;
       try {
         setIsLoading(true);
+         if (value !== lastSearchQuery) {
+          setLastSearchQuery(value);
+          setImages([]); 
+          setPage(1);
+        }
         const response = await DataImages(value, page);
 
         const { hits, totalHits } = response.data;
@@ -40,7 +46,7 @@ export const App = () => {
     };
 
     getDataImages();
-  }, [value, page]);
+  }, [value, page, lastSearchQuery]);
 
   const onHandleClickSubmit = value => {
     if (value.trim() === '') {
